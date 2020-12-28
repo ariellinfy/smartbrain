@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Particles from 'react-particles-js';
 // import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation';
-import Logo from './components/Logo/Logo';
 import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
@@ -129,8 +128,7 @@ class App extends Component {
             />
       <Navigation isSignin={isSignin} onRouteChange={this.onRouteChange}/>
       {route === 'home'
-        ? <div>
-            <Logo />
+        ? <div className='container'>
             <Rank name={this.state.user.name} entries={this.state.user.entries}/>
             <ImageLinkForm 
             onInputChange={this.onInputChange} 
