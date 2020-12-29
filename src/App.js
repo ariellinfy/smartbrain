@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Particles from 'react-particles-js';
 import Navigation from './components/Navigation/Navigation';
 import Rank from './components/Rank/Rank';
@@ -59,7 +59,7 @@ class App extends Component {
       leftCol: clarifaiFace.left_col * width,
       topRow: clarifaiFace.top_row * height,
       rightCol: width - (clarifaiFace.right_col * width),
-      bottomRow: height - (clarifaiFace.bottom_row * height),
+      bottomRow: height - (clarifaiFace.bottom_row * height)
     }
   }
 
@@ -72,42 +72,42 @@ class App extends Component {
   }
 
   onPictureSubmit = () => {
-    this.setState({imageUrl: this.state.input})
-      fetch('https://aqueous-cliffs-15853.herokuapp.com/imageurl', {
-            method: 'post',
-            headers: {'Content-Type': 'Application/json'},
-            body: JSON.stringify({
-              input: this.state.input
-            })
+    this.setState({imageUrl: this.state.input});
+    fetch('https://aqueous-cliffs-15853.herokuapp.com/imageurl', {
+          method: 'post',
+          headers: {'Content-Type': 'Application/json'},
+          body: JSON.stringify({
+            input: this.state.input
           })
-      .then(response => response.json())
-      .then(response => {
-        if (response) {
-          fetch('https://aqueous-cliffs-15853.herokuapp.com/image', {
-            method: 'put',
-            headers: {'Content-Type': 'Application/json'},
-            body: JSON.stringify({
-              id: this.state.user.id
-            })
+        })
+    .then(response => response.json())
+    .then(response => {
+      if (response) {
+        fetch('https://aqueous-cliffs-15853.herokuapp.com/image', {
+          method: 'put',
+          headers: {'Content-Type': 'Application/json'},
+          body: JSON.stringify({
+            id: this.state.user.id
           })
-          .then(response => response.json())
-          .then(count => {
-            this.setState(Object.assign(this.state.user, {entries: count}));
-          })
-          .catch(console.log)
-        }
-        this.displayFaceBox(this.calculateFaceLocation(response));
-      })
-      .catch(err => console.log(err));
-    }
+        })
+        .then(response => response.json())
+        .then(count => {
+          this.setState(Object.assign(this.state.user, {entries: count}));
+        })
+        .catch(console.log)
+      }
+      this.displayFaceBox(this.calculateFaceLocation(response));
+    })
+    .catch(err => console.log(err));
+  }
 
   onRouteChange = (route) => {
     if (route === 'signout') {
-      this.setState(initialState)
+      this.setState(initialState);
     } else if (route === 'home') {
-     this.setState({isSignin: true})
+     this.setState({isSignin: true});
     } 
-    this.setState({route: route})
+    this.setState({route: route});
   }
 
   render () {
