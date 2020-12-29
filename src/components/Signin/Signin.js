@@ -36,9 +36,8 @@ class Signin extends React.Component {
 		})
 	}
 
-
 	render () {
-		const {onRouteChange} = this.props;
+		const { onRouteChange } = this.props;
 		return (
 		<article className="br3 ba b--black-10 mv4 w-100 mw6 shadow-5 center">
 		<main className="pa4 black-80">

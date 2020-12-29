@@ -2,7 +2,7 @@ import React from 'react';
 import Logo from '../Logo/Logo';
 import './Navigation.css';
 
-const Navigation = ({onRouteChange, isSignin}) => {
+const Navigation = ({ onRouteChange, isSignin }) => {
 	if (isSignin){
 		return(
 			<nav style={{display:'flex', justifyContent:'space-between'}}>
@@ -18,13 +18,12 @@ const Navigation = ({onRouteChange, isSignin}) => {
 				<Logo />
 				<div style={{display:'flex'}}>
 					<p 
-					onClick={()=>onRouteChange('Signin')}
+					onClick={()=>onRouteChange('signin')}
 					className='link-btn f3 link white pa3 pointer'>Sign In</p>
 					<p 
 					onClick={()=>onRouteChange('register')}
 					className='link-btn f3 link white pa3 pointer'>Register</p>
 				</div>
-				
 			</nav>
 		);
 	}

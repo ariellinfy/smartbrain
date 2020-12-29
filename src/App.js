@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Particles from 'react-particles-js';
-// import Clarifai from 'clarifai';
 import Navigation from './components/Navigation/Navigation';
 import Rank from './components/Rank/Rank';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
@@ -16,16 +15,14 @@ const particlesOptions = {
       density: {
         enable: true,
         value_area: 800
-      }
-    }
-  }
-}
+  }}
+}}
 
 const initialState = {
     input: '',
     imageUrl: '',
     box: {},
-    route: 'Signin',
+    route: 'signin',
     isSignin: false,
     user: {
       id:'',
@@ -53,14 +50,8 @@ class App extends Component {
     })
   }
 
-  // componentDidMount(){
-  //   fetch('http://localhost:3001')
-  //   .then(response => response.json())
-  //   .then(data => console.log(data))
-  // }
-
   calculateFaceLocation = (data) => {
-    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box
+    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
     const image = document.getElementById('inputImage');
     const width = Number(image.width);
     const height = Number(image.height);
@@ -76,11 +67,11 @@ class App extends Component {
     this.setState({box: box});
   }
 
-  onInputChange = (event) => { //'onInputChange' is a property of the 'App'
+  onInputChange = (event) => {
     this.setState({input: event.target.value});
   }
 
-  onButtonSubmit = () => {
+  onPictureSubmit = () => {
     this.setState({imageUrl: this.state.input})
       fetch('https://aqueous-cliffs-15853.herokuapp.com/imageurl', {
             method: 'post',
@@ -99,13 +90,13 @@ class App extends Component {
               id: this.state.user.id
             })
           })
-          .then(response=> response.json())
-          .then(count =>{
-            this.setState(Object.assign(this.state.user, {entries: count}))
+          .then(response => response.json())
+          .then(count => {
+            this.setState(Object.assign(this.state.user, {entries: count}));
           })
           .catch(console.log)
         }
-        this.displayFaceBox(this.calculateFaceLocation(response))
+        this.displayFaceBox(this.calculateFaceLocation(response));
       })
       .catch(err => console.log(err));
     }
@@ -120,26 +111,26 @@ class App extends Component {
   }
 
   render () {
-    const { isSignin, route, box, imageUrl } = this.state;
-  return (
-    <div className="App">
-    <Particles className='particles'
-              params={particlesOptions}
-            />
-      <Navigation isSignin={isSignin} onRouteChange={this.onRouteChange}/>
-      {route === 'home'
-        ? <div className='container'>
-            <Rank name={this.state.user.name} entries={this.state.user.entries}/>
-            <ImageLinkForm 
-            onInputChange={this.onInputChange} 
-            onButtonSubmit={this.onButtonSubmit}
-            />
-            <FaceRecognition box={box} imageUrl={imageUrl}/>
-          </div>
-          : ( route === 'Signin'
-            ? <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-            : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-          )
+    const { isSignin, route, box, imageUrl, user } = this.state;
+    return (
+      <div className="App">
+      <Particles className='particles'
+                params={particlesOptions}
+              />
+        <Navigation isSignin={isSignin} onRouteChange={this.onRouteChange} />
+        { route === 'home'
+          ? (<div className='container'>
+              <Rank name={user.name} entries={user.entries} />
+              <ImageLinkForm 
+              onInputChange={this.onInputChange} 
+              onPictureSubmit={this.onPictureSubmit}
+              />
+              <FaceRecognition box={box} imageUrl={imageUrl}/>
+            </div>)
+          : ( route === 'register'
+              ? <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+              : <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
+            )
         }
       </div>
     );
