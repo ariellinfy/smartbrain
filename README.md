@@ -1,6 +1,6 @@
 # Smart Brain: Face Detection App (Full-Stack)
 
-![Smart Brain Cover](public/smart-brain-cover.png)
+![Smart Brain Cover](public/app-cover.png)
 
 ## About
 
