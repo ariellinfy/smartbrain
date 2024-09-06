@@ -1,9 +1,9 @@
+import { useEffect } from "react";
 import type { Metadata } from "next";
 import { siteConfig } from "./lib/sites";
-import "@/app/ui/global.css";
-
 import { roboto, roboto_mono } from "@/app/lib/fonts";
 import { Navbar } from "./ui/navbar";
+import "@/app/ui/global.css";
 
 export const metadata: Metadata = {
   title: {

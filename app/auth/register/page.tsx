@@ -1,11 +1,11 @@
-import { SignInForm } from "@/app/ui/auth/signin";
+import { SignUpForm } from "@/app/ui/auth/signup";
 import { ParticlesBg } from "@/app/ui/particles";
 
-export default function SignInPage() {
+export default function SignUpPage() {
   return (
     <>
       {/* <ParticlesBg /> */}
-      <SignInForm />
+      <SignUpForm />
     </>
   );
 }
