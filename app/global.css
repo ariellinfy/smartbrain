@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: linear-gradient(to right, #FC466B, #2b32b2f5);
+}
+
+button {
+  cursor: pointer;
+}

@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { siteConfig } from "../lib/sites";
+import { siteConfig } from "@/app/lib/sites";
 import { Logo } from "./logo";
 
 export const Navbar = () => {
   const linkStyles =
-    "text-default-500 transition-opacity hover:text-white hover:font-bold cursor-pointer drop-shadow-md hover:drop-shadow-lg";
+    "text-default-300 transition-opacity hover:text-white hover:font-bold cursor-pointer drop-shadow-md hover:drop-shadow-lg";
 
   return (
     <nav className="flex justify-between items-center p-3 pr-10">

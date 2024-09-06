@@ -1,9 +1,5 @@
-import { SignInForm } from "@/app/ui/auth/signin";
+import { SignInForm } from "@/ui/signin";
 
 export default function SignInPage() {
-  return (
-    <>
-      <SignInForm />
-    </>
-  );
+  return <SignInForm />;
 }

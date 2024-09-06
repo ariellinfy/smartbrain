@@ -1,9 +1,9 @@
-import { useEffect } from "react";
 import type { Metadata } from "next";
+import { roboto_mono } from "./lib/fonts";
 import { siteConfig } from "./lib/sites";
-import { roboto, roboto_mono } from "@/app/lib/fonts";
-import { Navbar } from "./ui/navbar";
-import "@/app/ui/global.css";
+import { Providers } from "./providers";
+import { Navbar } from "@/ui/navbar";
+import "./global.css";
 
 export const metadata: Metadata = {
   title: {
@@ -24,8 +24,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto_mono.className} antialiased min-h-screen`}>
-        <Navbar />
-        {children}
+        <Providers>
+          <Navbar />
+          {children}
+        </Providers>
       </body>
     </html>
   );

@@ -10,7 +10,7 @@ export const siteConfig = {
     },
     {
       label: "Sign Up",
-      href: "/auth/register",
+      href: "/auth/signup",
     },
   ],
   authNavItems: [
