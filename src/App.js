@@ -1,140 +1,149 @@
-import React, { Component } from 'react';
-import Particles from 'react-particles-js';
-import Navigation from './components/Navigation/Navigation';
-import Rank from './components/Rank/Rank';
-import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
-import FaceRecognition from './components/FaceRecognition/FaceRecognition';
-import Signin from './components/Signin/Signin';
-import Register from './components/Register/Register';
-import './App.css';
+import React, { useState, useEffect } from "react";
+// import Particles from 'react-particles-js';
+import ParticlesBg from "particles-bg";
+import Clarifai from "clarifai";
 
-const particlesOptions = {
-  particles: {
-    number: {
-      value: 80,
-      density: {
-        enable: true,
-        value_area: 800
-  }}
-}}
+import Navigation from "../components/Navigation/Navigation";
+import Logo from "../components/Logo/Logo";
+import Rank from "../components/rank";
+import ImageLinkForm from "../components/ImageLinkForm/ImageLinkForm";
+import FaceRecognition from "../components/FaceRecognition/FaceRecognition";
+import Signin from "../components/signin";
+import Register from "../components/Register";
+import "./App.css";
+
+// No Longer need this. Updated to particles-bg
+// const particlesOptions = {
+//   particles: {
+//     number: {
+//       value: 80,
+//       density: {
+//         enable: true,
+//         value_area: 800,
+//       },
+//     },
+//   },
+// };
 
 const initialState = {
-    input: '',
-    imageUrl: '',
-    box: {},
-    route: 'signin',
-    isSignin: false,
-    user: {
-      id:'',
-      name: '',
-      email: '',
-      entries: 0,
-      joined: ''
-  }
-}
+  input: "",
+  imageUrl: "",
+  box: {},
+  route: "signin",
+  isSignin: false,
+  user: {
+    id: "",
+    name: "",
+    email: "",
+    entries: 0,
+    joined: "",
+  },
+};
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = initialState;
-  }
+function App() {
+  const [state, setState] = useState(initialState);
 
-  loadUser = (data) => {
-    this.setState({user: {
+  const loadUser = (data) => {
+    setState({
+      ...state,
+      user: {
         id: data.id,
         name: data.name,
         email: data.email,
         entries: data.entries,
-        joined: data.joined
-      }
-    })
-  }
+        joined: data.joined,
+      },
+    });
+  };
 
-  calculateFaceLocation = (data) => {
-    const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
-    const image = document.getElementById('inputImage');
+  const calculateFaceLocation = (data) => {
+    const clarifaiFace =
+      data.outputs[0].data.regions[0].region_info.bounding_box;
+    const image = document.getElementById("inputImage");
     const width = Number(image.width);
     const height = Number(image.height);
     return {
       leftCol: clarifaiFace.left_col * width,
       topRow: clarifaiFace.top_row * height,
-      rightCol: width - (clarifaiFace.right_col * width),
-      bottomRow: height - (clarifaiFace.bottom_row * height)
-    }
-  }
+      rightCol: width - clarifaiFace.right_col * width,
+      bottomRow: height - clarifaiFace.bottom_row * height,
+    };
+  };
 
-  displayFaceBox = (box) => {
-    this.setState({box: box});
-  }
+  const displayFaceBox = (box) => {
+    setState({ ...state, box: box });
+  };
 
-  onInputChange = (event) => {
-    this.setState({input: event.target.value});
-  }
+  const onInputChange = (event) => {
+    setState({ ...state, input: event.target.value });
+  };
 
-  onPictureSubmit = () => {
-    this.setState({imageUrl: this.state.input});
-    fetch('https://aqueous-cliffs-15853.herokuapp.com/imageurl', {
-          method: 'post',
-          headers: {'Content-Type': 'Application/json'},
-          body: JSON.stringify({
-            input: this.state.input
+  const onButtonSubmit = () => {
+    setState({ ...state, imageUrl: state.input });
+
+    // HEADS UP! Sometimes the Clarifai Models can be down or not working as they are constantly getting updated.
+    // A good way to check if the model you are using is up, is to check them on the clarifai website. For example,
+    // for the Face Detect Mode: https://www.clarifai.com/models/face-detection
+    // If that isn't working, then that means you will have to wait until their servers are back up.
+
+    const app = new Clarifai.App({
+      apiKey: process.env.REACT_APP_CLARIFAI_API_KEY,
+    });
+
+    app.models
+      .predict("face-detection", state.input)
+      .then((response) => {
+        console.log("check", response);
+        if (response) {
+          fetch(process.env.REACT_APP_SERVER_URL + "/image", {
+            method: "put",
+            headers: { "Content-Type": "Application/json" },
+            body: JSON.stringify({
+              id: state.user.id,
+            }),
           })
-        })
-    .then(response => response.json())
-    .then(response => {
-      if (response) {
-        fetch('https://aqueous-cliffs-15853.herokuapp.com/image', {
-          method: 'put',
-          headers: {'Content-Type': 'Application/json'},
-          body: JSON.stringify({
-            id: this.state.user.id
-          })
-        })
-        .then(response => response.json())
-        .then(count => {
-          this.setState(Object.assign(this.state.user, {entries: count}));
-        })
-        .catch(console.log)
-      }
-      this.displayFaceBox(this.calculateFaceLocation(response));
-    })
-    .catch(err => console.log(err));
-  }
-
-  onRouteChange = (route) => {
-    if (route === 'signout') {
-      this.setState(initialState);
-    } else if (route === 'home') {
-     this.setState({isSignin: true});
-    } 
-    this.setState({route: route});
-  }
-
-  render () {
-    const { isSignin, route, box, imageUrl, user } = this.state;
-    return (
-      <div className="App">
-      <Particles className='particles'
-                params={particlesOptions}
-              />
-        <Navigation isSignin={isSignin} onRouteChange={this.onRouteChange} />
-        { route === 'home'
-          ? (<div className='container'>
-              <Rank name={user.name} entries={user.entries} />
-              <ImageLinkForm 
-              onInputChange={this.onInputChange} 
-              onPictureSubmit={this.onPictureSubmit}
-              />
-              <FaceRecognition box={box} imageUrl={imageUrl}/>
-            </div>)
-          : ( route === 'register'
-              ? <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-              : <Signin loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-            )
+            .then((response) => response.json())
+            .then((count) => {
+              setState(Object.assign(state.user, { entries: count })); // check
+            })
+            .catch(console.log);
         }
-      </div>
-    );
-  }
+        displayFaceBox(calculateFaceLocation(response));
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const onRouteChange = (route) => {
+    if (route === "signout") {
+      setState({ ...state, isSignedIn: false });
+    } else if (route === "home") {
+      setState({ ...state, isSignin: true });
+    }
+    setState({ ...state, route: route });
+  };
+
+  const { isSignin, route, box, imageUrl, user } = state;
+  return (
+    <div className="App">
+      <ParticlesBg type="color" bg={true} color={["random"]} num={5} />
+      <Navigation isSignin={isSignin} onRouteChange={onRouteChange} />
+      {route === "home" ? (
+        <div className="container">
+          <Logo />
+          <Rank name={user.name} entries={user.entries} />
+          <ImageLinkForm
+            onInputChange={onInputChange}
+            onButtonSubmit={onButtonSubmit}
+          />
+          <FaceRecognition box={box} imageUrl={imageUrl} />
+        </div>
+      ) : route === "register" ? (
+        <Register loadUser={loadUser} onRouteChange={onRouteChange} />
+      ) : (
+        <Signin loadUser={loadUser} onRouteChange={onRouteChange} />
+      )}
+    </div>
+  );
 }
 
 export default App;

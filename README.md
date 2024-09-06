@@ -10,3 +10,7 @@ A face recognition web app uses Clarifai Face Detection API to detect and highli
 
 - [Clarifai API](https://www.clarifai.com/)
 - [bcrypt-nodejs](https://www.npmjs.com/package/bcrypt-nodejs)
+- [NextJs]
+- [NextUI]
+- [tailwindcss]
+- [particles-bg]

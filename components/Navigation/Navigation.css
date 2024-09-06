@@ -1,0 +1,14 @@
+nav {
+    padding-right: 1.5em;
+    padding-left: 0.5em
+}
+
+.link-btn {
+    font-weight: 600;
+    text-shadow: 0 0 0.25em rgba(0, 0 , 0, 0.8);
+}
+
+.link-btn:hover {
+    filter: brightness(0.85);
+    text-shadow: 0 0 0.5em rgba(0, 0 , 0, 0.95);
+}
