@@ -12,7 +12,7 @@ export const authConfig = {
       const isOnPlayground = nextUrl.pathname.startsWith('/playground');
       if (isOnPlayground) {
         if (isLoggedIn) return true;
-        return false; // Redirect unauthenticated users to login page
+        return Response.redirect(new URL('/auth/signin', nextUrl));; // Redirect unauthenticated users to login page
       } else if (isLoggedIn) {
         return Response.redirect(new URL('/playground', nextUrl));
       }

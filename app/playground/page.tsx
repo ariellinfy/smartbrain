@@ -1,3 +1,7 @@
+export default function Playground() {
+  return <div>Hello</div>;
+}
+
 // import React, { useState, useEffect } from "react";
 // // import Particles from 'react-particles-js';
 // import ParticlesBg from "particles-bg";
