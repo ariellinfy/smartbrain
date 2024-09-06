@@ -13,6 +13,7 @@
     "@nextui-org/spinner": "^2.0.33",
     "@nextui-org/system": "^2.2.5",
     "@nextui-org/theme": "^2.2.9",
+    "@vercel/postgres": "^0.9.0",
     "bcryptjs": "^2.4.3",
     "framer-motion": "^11.5.4",
     "next": "14.2.8",
