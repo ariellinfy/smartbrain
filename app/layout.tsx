@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { roboto_mono } from "./lib/fonts";
 import { siteConfig } from "./lib/sites";
-import { Providers } from "./providers";
 import { Navbar } from "@/ui/navbar";
 import "./global.css";
 
@@ -26,10 +25,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto_mono.className} antialiased min-h-screen`}>
-        <Providers>
-          <Navbar />
-          {children}
-        </Providers>
+        <Navbar />
+        {children}
       </body>
     </html>
   );

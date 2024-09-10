@@ -1,7 +1,6 @@
 "use client"; // Error boundaries must be Client Components
 
 import { useEffect } from "react";
-import { Button } from "@nextui-org/button";
 
 export default function Error({
   error,
@@ -18,15 +17,15 @@ export default function Error({
   return (
     <div className="min-h-screen w-full flex flex-col gap-5 justify-center items-center">
       <h2 className="font-medium text-large">Something went wrong!</h2>
-      <Button
-        color="danger"
-        onPress={
+      <button
+        className="bg-black text-white px-4 py-2 rounded-md"
+        onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()
         }
       >
         Try again
-      </Button>
+      </button>
     </div>
   );
 }
