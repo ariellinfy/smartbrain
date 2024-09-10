@@ -5,6 +5,8 @@ import { Providers } from "./providers";
 import { Navbar } from "@/ui/navbar";
 import "./global.css";
 
+// export const experimental_ppr = true;
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,

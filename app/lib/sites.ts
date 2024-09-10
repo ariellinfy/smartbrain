@@ -6,17 +6,11 @@ export const siteConfig = {
   visitorNavItems: [
     {
       label: "Sign In",
-      href: "/auth/signin",
+      href: "/signin",
     },
     {
       label: "Sign Up",
-      href: "/auth/signup",
+      href: "/signup",
     },
-  ],
-  authNavItems: [
-    {
-      label: "Sign Out",
-      href: "/",
-    }
   ],
 };

@@ -1,10 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // experimental: {
+  //   ppr: "incremental",
+  // },
   async redirects() {
     return [
       {
         source: "/",
-        destination: "/auth/signin",
+        destination: "/signin",
         permanent: true,
       },
     ];
