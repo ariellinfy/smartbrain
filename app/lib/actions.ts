@@ -1,15 +1,59 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { signIn, auth, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { authSchema } from "./zod";
 import { createUser } from "./queries";
 import { saltAndHashPassword } from "./utils";
-import { State } from "./types";
+import { StateAuth, StatePrediction } from "./types";
+import { getUserEntries, updateUserEntries } from "./queries";
 
-export async function register(prevState: State, formData: FormData) {
+export async function faceDetection(
+  prevState: StatePrediction,
+  formData: FormData
+): Promise<StatePrediction> {
+  const session = await auth();
+  if (!session?.user) {
+    return {
+      error: "Failed to detect faces. User not authenticated.",
+    };
+  }
+  const options = {
+    method: "POST",
+    body: formData,
+  };
+
+  try {
+    const res = await fetch(process.env.URL + "api/playground", {
+      cache: "no-store",
+      ...options,
+    });
+    const data = await res.json();
+
+    if (data) {
+      await updateUserEntries(session.user.id);
+      const userEntries = await getUserEntries(session.user.id);
+      return { response: { ...data, userEntries } };
+    }
+
+    return {
+      error: "No data returned from face detection.",
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      error: "Failed to detect faces.",
+    };
+  }
+}
+
+export async function handleSignOut(formData: FormData) {
+  await signOut({ redirectTo: "/signin" });
+}
+
+export async function register(prevState: StateAuth, formData: FormData) {
   const validatedFields = authSchema.safeParse({
     name: formData.get("name"),
     email: formData.get("email"),
@@ -43,7 +87,7 @@ export async function authenticate(formData: FormData, type: string) {
 }
 
 export async function signInWithCredentials(
-  prevState: string | State | undefined,
+  prevState: string | StateAuth | undefined,
   formData: FormData
 ) {
   try {

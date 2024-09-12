@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { useActionState } from "react";
-import { State } from "@/app/lib/types";
+import { StateAuth } from "@/app/lib/types";
 import { register } from "@/app/lib/actions";
 
 export const SignUpForm = () => {
-  const initialState: State = { message: null, errors: {} };
+  const initialState: StateAuth = { message: null, errors: {} };
   const [state, formAction] = useActionState(register, initialState);
 
   return (

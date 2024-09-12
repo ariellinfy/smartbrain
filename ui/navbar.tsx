@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { siteConfig } from "@/app/lib/sites";
 import { Logo } from "./logo";
-import { auth, signOut } from "@/auth";
+import { auth } from "@/auth";
+import { handleSignOut } from "@/app/lib/actions";
 
 export const Navbar = async () => {
   const session = await auth();
@@ -16,12 +17,7 @@ export const Navbar = async () => {
       </Link>
       <ul className="flex gap-5 sm:gap-10 justify-end ml-5 text-white text-xl sm:text-2xl">
         {session?.user ? (
-          <form
-            action={async () => {
-              "use server";
-              await signOut({ redirectTo: "/signin" });
-            }}
-          >
+          <form action={handleSignOut}>
             <button type="submit" className={linkStyles}>
               Sign Out
             </button>
