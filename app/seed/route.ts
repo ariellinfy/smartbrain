@@ -1,6 +1,6 @@
-// import { db } from "@vercel/postgres";
+import { db } from "@vercel/postgres";
 
-// const client = await db.connect();
+const client = await db.connect();
 
 // async function createVerificationTokens() {
 //   await client.sql`
@@ -65,18 +65,18 @@
 //   `;
 // }
 
-// export async function GET() {
-//   try {
-//     await client.sql`BEGIN`;
-//     await createVerificationTokens();
-//     await createAccounts();
-//     await createSessions();
-//     await createUsers();
-//     await client.sql`COMMIT`;
+export async function GET() {
+  try {
+    // await client.sql`BEGIN`;
+    // await createVerificationTokens();
+    // await createAccounts();
+    // await createSessions();
+    // await createUsers();
+    // await client.sql`COMMIT`;
 
-//     return Response.json({ message: "Database created successfully" });
-//   } catch (error) {
-//     await client.sql`ROLLBACK`;
-//     return Response.json({ error }, { status: 500 });
-//   }
-// }
+    return Response.json({ message: "Database created successfully" });
+  } catch (error) {
+    await client.sql`ROLLBACK`;
+    return Response.json({ error }, { status: 500 });
+  }
+}
