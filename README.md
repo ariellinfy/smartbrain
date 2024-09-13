@@ -2,7 +2,7 @@
 
 ![App Cover](./public/smartbrain_cover.png)
 
-This is a face detection web application built with Next.js, NextAuth.js, and PostgreSQL. It allows users to log in using third-party providers (Google, GitHub, etc.), submit image URLs, and detect faces in the images with bounding box results and confidence scores.
+This is a face detection web application built with Next.js, Auth.js, and PostgreSQL. It allows users to log in using third-party providers (Google, GitHub, etc.), submit image URLs, and detect faces in the images with bounding box results and confidence scores.
 
 ## Features
 - User Authentication: Sign in using Google, GitHub, or classical email & password via Auth.js.
