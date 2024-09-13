@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next Smart Brain - Face Detection App (Full-Stack)
 
-## Getting Started
+![App Cover](./public/smartbrain_cover.png)
 
-First, run the development server:
+This is a face detection web application built with Next.js, NextAuth.js, and PostgreSQL. It allows users to log in using third-party providers (Google, GitHub, etc.), submit image URLs, and detect faces in the images with bounding box results and confidence scores.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
+- User Authentication: Sign in using Google, GitHub, or classical email & password via Auth.js.
+- Face Detection: Input an image URL, and the app detects faces with bounding boxes and confidence scores.
+- User Stats: Track and display the number of images processed by each user.
+- Responsive Design: The app adapts to various screen sizes for an optimal user experience.
+- Database Integration: User data and sessions are stored using PostgreSQL via Neon.
+- Real-Time Interaction: Users can see face detection results in real-time with an interactive form and image display.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
+1. Sign in via Google, GitHub or credentials.
+2. Submit an image URL to detect faces using the API4AI Face Detection API.
+3. View the image with detected faces highlighted by bounding boxes and confidence scores.
+3. Track your stats (number of images processed).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Resource
+- [Next.js](https://nextjs.org/docs) - Framework for server-rendered React applications.
+- [Auth.js](https://authjs.dev/) - Authentication library for managing user sessions.
+- [Vercel](https://vercel.com/home) - Hosting platform for deployment.
+- [API4AI Face Detection API](https://api4.ai/docs/face-analysis) - Used for detecting faces in images and returning face analysis data.
+- [Google Cloud OAuth](https://developers.google.com/identity/protocols/oauth2)  - For authenticating users with Google.
+- [GitHub OAuth](https://authjs.dev/guides/configuring-github)  - For authenticating users with GitHub.
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework used for quickly styling and creating responsive designs.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.

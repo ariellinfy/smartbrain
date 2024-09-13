@@ -1,5 +1,10 @@
+import { Metadata } from "next";
 import { auth } from "@/auth";
 import { DetectionOverview } from "@/ui/detection-overview";
+
+export const metadata: Metadata = {
+  title: "Playground",
+};
 
 export default async function Playground() {
   const session = await auth();

@@ -9,11 +9,26 @@ import "./global.css";
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
-    template: `%s - ${siteConfig.name}`,
+    template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   icons: {
-    icon: "/favicon.ico",
+    icon: "/icons/favicon.ico",
+    apple: "/icons/apple-touch-icon.png",
+    shortcut: "/icons/favicon-16x16.png",
+    other: [
+      { rel: "icon", url: "/icons/favicon-32x32.png", sizes: "32x32" },
+      {
+        rel: "icon",
+        url: "/icons/android-chrome-192x192.png",
+        sizes: "192x192",
+      },
+      {
+        rel: "icon",
+        url: "/icons/android-chrome-512x512.png",
+        sizes: "512x512",
+      },
+    ],
   },
 };
 
