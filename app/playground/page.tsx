@@ -21,6 +21,7 @@ export default function Playground() {
   );
 
   useEffect(() => {
+    console.log("Session data: ", sessionData);
     // Forcing session refresh after signing in
     const refreshSession = async () => {
       await getSession().then((res) => setSessionData(res as Session));

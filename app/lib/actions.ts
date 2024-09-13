@@ -26,7 +26,7 @@ export async function faceDetection(
   };
 
   try {
-    const res = await fetch(process.env.URL + "api/playground", {
+    const res = await fetch(process.env.NEXTAUTH_URL + "api/playground", {
       cache: "no-store",
       ...options,
     });
