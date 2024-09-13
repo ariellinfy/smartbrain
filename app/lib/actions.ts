@@ -32,14 +32,14 @@ export async function faceDetection(
     });
     const data = await res.json();
 
-    if (data) {
+    if (data.results[0].status.code === "ok") {
       await updateUserEntries(session.user.id);
       const userEntries = await getUserEntries(session.user.id);
       return { response: { ...data, userEntries } };
     }
 
     return {
-      error: "No data returned from face detection.",
+      error: data.results[0].status.message,
     };
   } catch (error) {
     console.error(error);

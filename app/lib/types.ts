@@ -50,6 +50,11 @@ export interface RankProps {
   entries: number;
 }
 
+export interface ImageFormProps {
+  formAction: (payload: FormData) => void;
+  isPending?: boolean;
+}
+
 export interface ResultProps extends StatePrediction {
   isPending?: boolean;
 }

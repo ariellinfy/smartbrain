@@ -9,9 +9,8 @@ export const Result = ({ response, error, isPending }: ResultProps) => {
 
   const updateImageSize = () => {
     if (imageRef.current) {
-      const dpr = window.devicePixelRatio || 1;
-      const renderedWidth = imageRef.current.clientWidth * dpr;
-      const renderedHeight = imageRef.current.clientHeight * dpr;
+      const renderedWidth = imageRef.current.clientWidth;
+      const renderedHeight = imageRef.current.clientHeight;
       setImageSize({ width: renderedWidth, height: renderedHeight });
     }
   };
@@ -23,15 +22,18 @@ export const Result = ({ response, error, isPending }: ResultProps) => {
 
   if (isPending)
     return (
-      <p className="text-black text-xl p-12">
-        Detecting faces... please wait...
+      <p className="text-black text-2xl p-12">
+        Detecting faces, please wait...
       </p>
     );
 
-  if (error) return <p className="text-red-200 text-xl p-12">Error: {error}</p>;
+  if (error)
+    return <p className="text-red-200 text-2xl p-12">Error: {error}.</p>;
 
   if (!response)
-    return <p className="text-yellow-300 text-xl p-12">No image detected...</p>;
+    return (
+      <p className="text-yellow-300 text-2xl p-12">No image detected...</p>
+    );
 
   const imageUrl = response.results[0]?.name;
   const originalWidth = response.results[0]?.width;
